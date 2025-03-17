@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Storage Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 10px; }
+        .node-section { margin-bottom: 40px; }
+        table { border-collapse: collapse; width: 80%; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .replica-true { color: #888; }
+        .replica-false { color: #000; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Storage Dashboard</h1>
+    <p>
+        <a href="{% url 'file_list' %}">&larr; Back to File List</a> |
+        <a href="{% url 'logout' %}">Logout</a>
+    </p>
+    {% for node_name, chunks in node_chunks.items %}
+        <div class="node-section">
+            <h2>Node: {{ node_name }}</h2>
+            <table>
+                <tr>
+                    <th>File Name</th>
+                    <th>Chunk #</th>
+                    <th>Replica?</th>
+                    <th>Checksum</th>
+                    <th>File Path</th>
+                </tr>
+                {% for chunk in chunks %}
+                    <tr>
+                        <td>{{ chunk.stored_file.file_name }}</td>
+                        <td>{{ chunk.chunk_number }}</td>
+                        <td class="replica-{{ chunk.replicated }}">{{ chunk.replicated }}</td>
+                        <td>{{ chunk.checksum|slice:":8" }}...</td>
+                        <td>{{ chunk.file_path }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% empty %}
+        <p>No chunks found in the system.</p>
+    {% endfor %}
+</body>
+</html>
