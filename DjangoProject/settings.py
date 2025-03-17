@@ -3,7 +3,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-replace-this-with-a-random-secret-key'
+SECRET_KEY = 'django-213h8123y7213y812he872y3123h213h182y3h123'
 DEBUG = True
 ALLOWED_HOSTS = []
 
