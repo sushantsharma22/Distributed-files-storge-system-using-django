@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Uploaded Files</title>
+</head>
+<body>
+    <h1>Uploaded Files</h1>
+    <p>
+        <a href="{% url 'upload_file' %}">Upload New File</a> |
+        <a href="{% url 'dashboard' %}">Dashboard</a> |
+        <a href="{% url 'logout' %}">Logout</a>
+    </p>
+    <ul>
+    {% for f in files %}
+        <li>
+            {{ f.file_name }} ({{ f.upload_date }}) &mdash;
+            <a href="{% url 'download_file' f.id %}">Download</a>
+        </li>
+    {% empty %}
+        <li>No files uploaded.</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
